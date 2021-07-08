@@ -48,13 +48,15 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _transactions.add(newTransaction);
     });
+
+    Navigator.of(context).pop();
   }
 
   _openTransactionFormModal(BuildContext context) {
     showModalBottomSheet(
         context: context,
         builder: (_) {
-          return TransactionForm(null);
+          return TransactionForm(_addTransaction);
         });
   }
 
@@ -62,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Depesas Pessoais'),
+        title: Text('Despesas Pessoais'),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.add),
