@@ -31,7 +31,7 @@ class _TransactionFormState extends State<TransactionForm> {
       elevation: 5,
       child: Padding(
         padding: const EdgeInsets.all(10),
-        child: Column(
+        child: ListView(
           children: <Widget>[
             TextField(
               controller: titleController,
