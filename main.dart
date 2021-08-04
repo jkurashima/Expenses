@@ -88,10 +88,10 @@ class _MyHomePageState extends State<MyHomePage> {
         });
   }
 
-  Widget _getIconButton(IconData icon, Function fn) {
+  Widget _getIconButton(IconData icon, Function() fn) {
     return Platform.isIOS
-        ? GestureDetector(onTap: () => fn, child: Icon(icon))
-        : IconButton(icon: Icon(icon), onPressed: () => fn);
+        ? GestureDetector(onTap: fn, child: Icon(icon))
+        : IconButton(icon: Icon(icon), onPressed: fn);
   }
 
   @override
@@ -114,18 +114,10 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     ];
 
-    final PreferredSizeWidget appBar = Platform.isIOS
-        ? CupertinoNavigationBar(
-            middle: Text('Despesas Pessoais'),
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: actions,
-            ) as PreferredSizeWidget,
-          )
-        : AppBar(
-            title: Text('Despesas Pessoais'),
-            actions: actions,
-          ) as PreferredSizeWidget;
+    final PreferredSizeWidget appBar = AppBar(
+      title: Text('Despesas Pessoais'),
+      actions: actions,
+    );
     final availableHeight = mediaQuery.size.height -
         appBar.preferredSize.height -
         mediaQuery.padding.top;
@@ -164,9 +156,12 @@ class _MyHomePageState extends State<MyHomePage> {
     );
 
     return Platform.isIOS
-        ? CupertinoPageScaffold(
-            navigationBar: appBar as ObstructingPreferredSizeWidget,
-            child: bodyPage,
+        ? CupertinoNavigationBar(
+            middle: Text('Despesas Pessoais'),
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: actions,
+            ),
           )
         : Scaffold(
             appBar: appBar,
